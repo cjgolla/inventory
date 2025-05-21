@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="error-message">
+        Error
+    </div>
+    <main>
+        <!-- <p>*no inventory</p> -->
+    
+    <!-- <form>
+        <h2># Upload Inventory</h2>
+        <h2>+ Initialize New Inventory</h2>
+    </form> -->
+    <form style="display: flex; flex-direction: column;" id="inventory-info-input">
+        <label name="input-name">Name
+            <input name="input-text" id="name" type="text">
+        </label>
+        <label name="type">Type
+        <div style="display: flex; align-items: center;" id="options-container-select">
+        <select for="type" name="type-select" id="type-select">
+ 
+        </select>
+        <button class="small-button" id="add-option-button">+</button>
+        </div>
+        <div id="add-option-input">
+
+        </div>
+        </label>
+        <span style="display: none" id="name-error" class="text-error">Name taken or invalid</span>
+        <fieldset id="type-options">
+
+        </fieldset>
+        <label name="description-label">Description
+            <textarea name="input-text" type="text" id="desc"></textarea>
+        </label>
+        
+        <label name="image-label" id="image-placeholder">
+            <input  style="display: none;" id="input-image" for="image-label" type="file" accept="image/png image/jpg">
+            <img style="width:200px; display: none;" id="item-img">
+            <div id="camera-svg" style="color: rgb(138, 138, 138); width: 50px">
+                <?xml version="1.0" encoding="UTF-8"?>
+                    <svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 302.76 227.59">
+                    <defs>
+                        <style>
+                        .cls-1 {
+                            fill: rgb(168, 168, 168);
+                        }
+
+                        .cls-2 {
+                            fill: none;
+                            
+                            stroke-miterlimit: 10;
+                            stroke-width: 11px;
+                        }
+                        </style>
+                    </defs>
+                    <g id="Layer_2-2" data-name="Layer 2">
+                        <g>
+                        <path class="cls-1" d="M297.26,39.21v163.97c0,10.44-8.46,18.91-18.91,18.91H24.41c-10.44,0-18.91-8.47-18.91-18.91V39.21C5.5,20.59,20.59,5.5,39.2,5.5h224.36c18.61,0,33.7,15.09,33.7,33.71ZM213.79,114.52v-1.45c0-34.46-27.94-62.4-62.41-62.4-17.23,0-32.83,6.98-44.12,18.28-11.29,11.29-18.28,26.89-18.28,44.12v1.45c0,34.46,27.94,62.4,62.4,62.4s62.41-27.94,62.41-62.4Z"/>
+                        <g>
+                            <path class="cls-2" d="M24.41,222.09h253.94c10.45,0,18.91-8.47,18.91-18.91V39.21c0-18.62-15.09-33.71-33.7-33.71H39.2C20.59,5.5,5.5,20.59,5.5,39.21v163.97c0,10.44,8.47,18.91,18.91,18.91Z"/>
+                            <path class="cls-2" d="M151.38,176.92c34.47,0,62.41-27.94,62.41-62.4v-1.45c0-34.46-27.94-62.4-62.41-62.4-17.23,0-32.83,6.98-44.12,18.28-11.29,11.29-18.28,26.89-18.28,44.12v1.45c0,34.46,27.94,62.4,62.4,62.4Z"/>
+                        </g>
+                        </g>
+                    </g>
+                    </svg>
+            </div>
+            <div id="insert-pic-text" style="margin-left: 10px">Insert pic</div>
+        </label>
+
+        <div style="display: flex; margin-bottom:20px;" id="qt-price-container">
+            <label style="margin-right:15px;" name="input-quantity" id="input-quantity">Quantity
+            <input name="input-text" id="qt" type="number" min=0 max="9999">
+            </label>
+            <label name="input-price" value="0" id="input-price">Price
+            <input name="input-text" value="0" id="pr" type="number" min=0 max="9999">
+        </label>
+        </div>
+        <button id="submit-button">Submit</button>
+    </form>
+    </main>
+    <script type="module" src="script.js"></script>
+</body>
+</html>
