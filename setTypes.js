@@ -1,5 +1,3 @@
-
-
 function getOptions() { 
     
     let options;
@@ -251,8 +249,6 @@ function setTypes() {
             }
         }
     })
-    
 }
-
 
 export {setTypes, setType}

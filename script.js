@@ -1,7 +1,9 @@
 import inventory from './inventory.js'
 import {setTypes, setType} from './setTypes.js'
 import {Product, createProduct} from './product.js'
+import setFolders from './setFolders.js'
 
+setFolders()
 setTypes()
 
 const selectValue = document.getElementById("type-select")
