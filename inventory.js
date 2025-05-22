@@ -14,7 +14,6 @@ class Inventory{
 
     set(obj) {
         this.inventory.set(obj.name, obj)
-        console.log(this.inventory)
     }
 
     get() {
@@ -33,7 +32,6 @@ class Inventory{
     }
     displayItems() {
         this.inventory.forEach(item=> {
-            console.log(`${item.name}, qt. ${item.qt} pr. ${item.pr}`)
         })
     }
 

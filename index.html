@@ -13,6 +13,13 @@
     <div id="error-message">
         Error
     </div>
+    <nav id="main-nav">
+        <ul style="display: flex; margin: 5px" >
+            <li style="padding: 5px">Inventory</li>
+            <li style="padding: 5px">Add Product</li>
+        </ul>
+        
+    </nav>
     <main>
         <!-- <p>*no inventory</p> -->
     
@@ -24,7 +31,7 @@
         <label name="input-name">Name
             <input name="input-text" id="name" type="text">
         </label>
-        <label name="type">Type
+        <label name="type" id="label-type">Type
         <div style="display: flex; align-items: center; margin-bottom: 8px" id="options-container-select">
         <select for="type" name="type-select" id="type-select">
  
@@ -88,7 +95,7 @@
         
         <label id="folder-label">Select Folder
             <div style="display:flex; margin-bottom: 10px; align-items: center;">
-                <select id="folder">
+                <select id="folder-select" name="folder-select">
                 <option>anime shit</option>
                 <option>cartoon shit</option>
                 </select>

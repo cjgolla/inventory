@@ -140,7 +140,6 @@ function submitInfo() {
     } catch (error) {
         console.log(error)
     }
-    
 }
 
 submitButton.addEventListener("click", (e)=> {

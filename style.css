@@ -94,6 +94,14 @@ fieldset{
     position: absolute;
     opacity: 0%;
 }
+ul{
+    padding:0;
+    margin: 0;
+}
+
+li{
+    list-style: none;
+}
 
 .small-button{
     width: 25px; 

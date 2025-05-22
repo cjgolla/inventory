@@ -1,19 +1,50 @@
 import Folder from './folder.js'
 import folderCollection from './folderCollection.js'
 
+function setCollection() {
+    try{
+        const folderEntries = JSON.parse(localStorage.getItem("folders"));
+        folderCollection.setAll(folderEntries);
+    } catch (error) {
+
+    }
+    folderCollection.addFolder("anime", {name:"anime"})
+    folderCollection.addFolder("cartoon", {name:"cartoon"})
+    return folderCollection;
+}
+
+function renderFolders(name) {
+    const folderSelect = document.getElementById("folder-select")
+    folderCollection.collection.forEach(folder=>{
+        const option = document.createElement("option")
+        option.value = folder.name
+        option.textContent = folder.name
+        folderSelect.value = folder.name
+        option.for = "folder-select"
+        folderSelect.appendChild(option)
+    })
+    if(name) {
+        folderSelect.value = name
+    }
+}
+
 //Initializing new folder
 function createFolder(name) {
     const folder = new Folder(name)
     folder.addProduct("cool stuff")
     folder.addProduct("neat shit")
     folderCollection.addFolder(name, folder.getFolder())
-    console.log(folderCollection.get("shit").products)
+    let foldersArray = JSON.stringify(Array.from(folderCollection.collection.entries()));
+    console.log(foldersArray)
+    localStorage.setItem("folders", foldersArray)
+    renderFolders(name)
     return folder
 }
 
 //Initializing folder functionality
 function setFolders() {
-    console.log(folderCollection)
+    setCollection()
+    renderFolders()
 
     const confirm = document.createElement("button")
     confirm.textContent = "confirm"
@@ -57,11 +88,7 @@ function setFolders() {
     //Confirming new folder
     confirm.addEventListener("click", (e)=> {
         e.preventDefault()
-        const newFolder = createFolder(folderInput.value)
-        console.log(newFolder)
-        folderCollection.addFolder(folderInput.value, newFolder)
-        console.log(folderCollection)
-        localStorage.setItem("folders", JSON.stringify(folderCollection))
+        createFolder(folderInput.value)
         folderLabel.removeChild(inputLabel)
     })
 }

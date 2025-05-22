@@ -1,3 +1,5 @@
+//Gets and returns options if found in LS, otherwise only default options will return
+
 function getOptions() { 
     
     let options;
@@ -7,8 +9,6 @@ function getOptions() {
         console.log(error)
     }
 
-    
-
     if(options.size === 0) {
     options = new Map()
     options.set("print", {type: "print", medium: ["matte", "foil", "canvas"], WL: {width: "", height: "", metric: "inc"}})
@@ -17,7 +17,6 @@ function getOptions() {
     options.set("shirt", {type: "shirt", size: ["xs", "s", "m", "l", "xl", "xx"]})
     const optionsString = JSON.stringify(Array.from(options.entries()))
     localStorage.setItem("options", optionsString)
-    console.log("HELO")
 
 }
 
@@ -31,10 +30,9 @@ function saveOptions(name, obj) {
     }
     options.set(name, obj)
     const optionsString = JSON.stringify(Array.from(options.entries()))
-    console.log(options)
+
     localStorage.setItem("options", optionsString)
 }
-
 
 function setType(name) {
     const options = getOptions()
@@ -72,64 +70,66 @@ function setType(name) {
     return productOptions
 }
 
-function renderOptions() {
-    try{
-    const addButton = document.getElementById("add-option-button")
+function renderOptions(name) {
+    const typeLabel = document.getElementById("label-type")
     const options = getOptions()
     const optionsContainer = document.getElementById("options-container-select")
-    optionsContainer.remove(addButton)
-
     const newAddButton = document.createElement("button")
-    newAddButton.classList.add("small-button")
     const selectContainer = document.getElementById("type-select")
 
-    
-        optionsContainer.removeChild(selectContainer)
-    } catch (error) {
-        
-    }
-
-    const newSelectContainer = document.createElement("select")
-    newSelectContainer.id = "type-select"
-    optionsContainer.appendChild(newSelectContainer)
-    optionsContainer.appendChild(newAddButton)
+    const oldOptions = document.querySelectorAll('option[value="option-type"]')
+    oldOptions.forEach(option=> {
+        selectContainer.removeChild(option)
+    })
 
     options.forEach(option=> {
         const element = document.createElement("option")
         element.value = option.type
         element.textContent = option.type
-        newSelectContainer.appendChild(element)
+        selectContainer.appendChild(element)
     })
+    if(name) {
+        selectContainer.value = name
+    }
 }
 
 
 function setTypes() {
     const optionsContainer = document.getElementById("options-container-select")
+
+    //Buttons for adding and confirming new types
     const addButton = document.getElementById("add-option-button")
-    const options = getOptions()
-    const optionContainer = document.createElement("div")
-    optionContainer.id = "new-option-container"
-    optionContainer.style.display = "flex"
-    const selectContainer = document.getElementById("type-select")
-    const defaultOption = document.createElement("option")
     const confirmOption = document.createElement("button")
     confirmOption.style.width ="70px"
     confirmOption.classList.add("small-button")
     confirmOption.textContent = "confirm"
     confirmOption.id="confirm-option"
-
     const removeButton = document.createElement("button")
     removeButton.classList.add("small-button")
     removeButton.textContent = "x"
 
+    //Getting options from LS if possible
+    const options = getOptions()
+    const optionContainer = document.createElement("div")
+    optionContainer.id = "new-option-container"
+    optionContainer.style.display = "flex"
+    const selectContainer = document.getElementById("type-select")
+
+    const defaultOption = document.createElement("option")
     defaultOption.value = "option"
     defaultOption.textContent = "select option"
+    
+    //Selects div for adding optional inputs
     const addInput = document.getElementById("add-option-input")
+
+    //creates label for the new type input
     const newTypeLabel = document.createElement("label")
     newTypeLabel.for = optionContainer
     newTypeLabel.textContent = "Enter New Type"
     newTypeLabel.id = "new-type-label"
     
+    const optionInput = document.createElement("input")
+    optionInput.id = "option-input";
 
     addButton.addEventListener("click", (e)=> {
         const removeInput = document.getElementById("new-option-container")
@@ -140,8 +140,7 @@ function setTypes() {
 
         }
 
-        const optionInput = document.createElement("input")
-        optionInput.id = "option-input";
+        //Appending options
         optionContainer.appendChild(optionInput)
         optionContainer.appendChild(confirmOption)
         optionContainer.appendChild(removeButton)
@@ -156,38 +155,43 @@ function setTypes() {
         addInput.removeChild(document.getElementById("new-type-label"))
     })
 
+    //Confirmming option
     confirmOption.addEventListener("click", (e)=> {
         e.preventDefault()
-        if(document.getElementById("option-input").value === "") {
+         if(document.getElementById("option-input").value === "") {
             optionContainer.removeChild(document.getElementById("option-input"))
             optionContainer.removeChild(confirmOption)
+            
             addInput.removeChild(newTypeLabel)
 
             return
         }
-        try {
-            console.log(document.getElementById("option-input").value)
-            const typeName = document.getElementById("option-input").value
-            saveOptions(typeName, {type: typeName})
-            
-            optionContainer.removeChild(document.getElementById("option-input"))
-            optionContainer.removeChild(confirmOption)
-            addInput.removeChild(newTypeLabel)
-            
-        } catch (error) {
-            console.log(error)
-        }
+        const typeName = document.getElementById("option-input").value
+        optionContainer.removeChild(removeButton)
+        optionContainer.removeChild(confirmOption)
+        optionContainer.removeChild(optionInput)
+        addInput.removeChild(newTypeLabel)
+        saveOptions(typeName, {type: typeName})
+        selectContainer.value = typeName
+        
+        renderOptions(typeName)
         
     })
 
+    //Adding select options
     selectContainer.appendChild(defaultOption)
     options.forEach(option=> {
         const element = document.createElement("option")
         element.value = option.type
+        element.type = "option-type"
+        element.value = "option-type"
         element.textContent = option.type
         selectContainer.appendChild(element)
+
     })
 
+    //Change options panel based on the type ie adding width and length inputs for prints
+    // or selecting shirt sizes for shirts
     selectContainer.addEventListener("change", (e)=> {
         const selectedOption = options.get(e.target.value)
         e.preventDefault()
