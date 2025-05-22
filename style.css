@@ -25,9 +25,9 @@ input {
     display: block;
     padding:5px;
     border-radius:6px;
+
     border:none;
     outline: solid 1px rgb(202, 202, 202);
-    margin-top:5px;
 }
 textarea{
     border-radius:6px;
@@ -43,7 +43,7 @@ select{
     border: none;
     display: block;
     outline: solid 1px rgb(202, 202, 202);
-   margin-top:5px;
+
 }
 button{
     border: none;
@@ -99,7 +99,7 @@ fieldset{
     width: 25px; 
     height: 25px; 
     display: flex; 
-    margin-top:5px; 
+
     align-items: center; 
     justify-content: 
     center; margin-left:10px;
@@ -107,11 +107,11 @@ fieldset{
 .confirm-button{
     height:25px;
     width: 70px;
-    margin-top:5px; 
+
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 5px;
+    margin-left: 10px;
 }
 
 .slide-in{

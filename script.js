@@ -116,8 +116,9 @@ function submitInfo() {
         const inputImage = document.getElementById("image-placeholder")
         const qt = Number(document.getElementById("qt").value)
         const pr = Number(document.getElementById("pr").value)
+        const fldr = document.getElementById("folder").value
 
-        const newProduct = createProduct([name, desc, type, qt, pr])
+        const newProduct = createProduct([name, desc, type, qt, pr, fldr])
         console.log(newProduct)
 
         if(name === "" || desc === "" || qt === "" || pr === "") {

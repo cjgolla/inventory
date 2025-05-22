@@ -1,10 +1,11 @@
 class Product{
-    constructor(name, desc, type, qt, pr) {
+    constructor(name, desc, type, qt, pr, fldr) {
         this.name = name;
         this.desc = desc;
         this.type = type;
         this.qt = qt;
         this.pr = pr;
+        this.fldr = fldr
     }
     setName(newName) {
         this.name = newName

@@ -4,31 +4,35 @@ class FolderCollection{
     constructor(){
         if (FolderCollection.instance == null) {
             this.collection = new Map()
-            try{
-                const inventoryArray = JSON.parse(localStorage.getItem("collection"))
-                this.collection = new Map(inventoryArray)
-            } catch (error) {
-                console.log(error)
-            }
+            FolderCollection.instance = this;
         }
         return FolderCollection.instance
     }
 
-    set(name){
+    addFolder(name, folderObject){
 
-        this.collection.set(name, {})
+        this.collection.set(name, folderObject)
 
         
        /*  const folderArray = Array.from(this.collection.get().entries())
         localStorage.setItem("folderArray", JSON.stringify(folderArray))  */
     }
+
+    setAll(folderEntries) {
+
+        //for retrieving folders from local storage
+        this.collection = new Map(folderEntries)
+    }
     remove(name){
-        this.collection.remove(name)
-        const folderArray = Array.from(inventory.get().entries())
+        this.collection.delete(name)
+        const folderArray = Array.from(this.collection.entries())
         localStorage.setItem("folderArray", JSON.stringify(folderArray))
     }
     get(name){
         return this.collection.get(name)
+    }
+    getAll() {
+        return Array.from(this.collection.entries())
     }
 }
 

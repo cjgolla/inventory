@@ -73,6 +73,7 @@ function setType(name) {
 }
 
 function renderOptions() {
+    try{
     const addButton = document.getElementById("add-option-button")
     const options = getOptions()
     const optionsContainer = document.getElementById("options-container-select")
@@ -82,13 +83,14 @@ function renderOptions() {
     newAddButton.classList.add("small-button")
     const selectContainer = document.getElementById("type-select")
 
-    try{
+    
         optionsContainer.removeChild(selectContainer)
     } catch (error) {
-
+        
     }
 
     const newSelectContainer = document.createElement("select")
+    newSelectContainer.id = "type-select"
     optionsContainer.appendChild(newSelectContainer)
     optionsContainer.appendChild(newAddButton)
 
@@ -102,6 +104,7 @@ function renderOptions() {
 
 
 function setTypes() {
+    const optionsContainer = document.getElementById("options-container-select")
     const addButton = document.getElementById("add-option-button")
     const options = getOptions()
     const optionContainer = document.createElement("div")
@@ -114,9 +117,18 @@ function setTypes() {
     confirmOption.classList.add("small-button")
     confirmOption.textContent = "confirm"
     confirmOption.id="confirm-option"
+
+    const removeButton = document.createElement("button")
+    removeButton.classList.add("small-button")
+    removeButton.textContent = "x"
+
     defaultOption.value = "option"
     defaultOption.textContent = "select option"
     const addInput = document.getElementById("add-option-input")
+    const newTypeLabel = document.createElement("label")
+    newTypeLabel.for = optionContainer
+    newTypeLabel.textContent = "Enter New Type"
+    newTypeLabel.id = "new-type-label"
     
 
     addButton.addEventListener("click", (e)=> {
@@ -132,15 +144,27 @@ function setTypes() {
         optionInput.id = "option-input";
         optionContainer.appendChild(optionInput)
         optionContainer.appendChild(confirmOption)
-        
-        addInput.appendChild(optionContainer)
-        const newOption = document.createElement("option")
+        optionContainer.appendChild(removeButton)
+        newTypeLabel.appendChild(optionContainer)
+        addInput.appendChild(newTypeLabel)
 
+    })
+
+    removeButton.addEventListener("click", (e)=> {
+        e.preventDefault()
+        optionContainer.removeChild(document.getElementById("option-input"))
+        addInput.removeChild(document.getElementById("new-type-label"))
     })
 
     confirmOption.addEventListener("click", (e)=> {
         e.preventDefault()
+        if(document.getElementById("option-input").value === "") {
+            optionContainer.removeChild(document.getElementById("option-input"))
+            optionContainer.removeChild(confirmOption)
+            addInput.removeChild(newTypeLabel)
 
+            return
+        }
         try {
             console.log(document.getElementById("option-input").value)
             const typeName = document.getElementById("option-input").value
@@ -148,8 +172,8 @@ function setTypes() {
             
             optionContainer.removeChild(document.getElementById("option-input"))
             optionContainer.removeChild(confirmOption)
-            addInput.removeChild(document.getElementById("new-option-container"))
-            renderOptions()
+            addInput.removeChild(newTypeLabel)
+            
         } catch (error) {
             console.log(error)
         }
@@ -165,7 +189,6 @@ function setTypes() {
     })
 
     selectContainer.addEventListener("change", (e)=> {
-        
         const selectedOption = options.get(e.target.value)
         e.preventDefault()
         try {

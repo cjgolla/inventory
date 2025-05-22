@@ -1,14 +1,18 @@
 class Folder {
     constructor(name){
         this.name = name
-        this.folder = new Map()
+        this.products = []
     }
-    setProduct(name, product) {
-        this.folder.set(name, product)
+    addProduct(product) {
+        this.products.push(product)
     }
     getFolder() {
-        return this.folder
+        return {
+            name: this.name,
+            products: this.products
+        }
     }
+
 }
 
 export default Folder
