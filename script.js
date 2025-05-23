@@ -100,6 +100,7 @@ inputImageFile.addEventListener("change", (e) => {
                 itemImg.style.display="block"
                 console.log(e.target.result)
                 localStorage.setItem("image", JSON.stringify(e.target.result))
+                imgSrc = e.target.result
             };
             reader.readAsDataURL(input)
         }
@@ -113,12 +114,12 @@ function submitInfo() {
         console.log(type)
         const desc = document.getElementById("desc").value
         const img = currentImage || "-"
-        const inputImage = document.getElementById("image-placeholder")
+ 
         const qt = Number(document.getElementById("qt").value)
         const pr = Number(document.getElementById("pr").value)
-        const fldr = document.getElementById("folder").value
+        const fldr = document.getElementById("folder-select").value
 
-        const newProduct = createProduct([name, desc, type, qt, pr, fldr])
+        const newProduct = createProduct([name, desc, type, qt, pr, fldr, img])
         console.log(newProduct)
 
         if(name === "" || desc === "" || qt === "" || pr === "") {

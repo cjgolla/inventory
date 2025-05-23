@@ -10,13 +10,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="error-message">
+    <!-- <div id="error-message">
         Error
-    </div>
+    </div> -->
     <nav id="main-nav">
         <ul style="display: flex; margin: 5px" >
-            <li style="padding: 5px">Inventory</li>
-            <li style="padding: 5px">Add Product</li>
+            <li id="inventory-button" style="padding: 5px">Inventory</li>
+            <li id="add-product-button" style="padding: 5px">Add Product</li>
         </ul>
         
     </nav>
@@ -27,7 +27,7 @@
         <h2># Upload Inventory</h2>
         <h2>+ Initialize New Inventory</h2>
     </form> -->
-    <form style="display: flex; flex-direction: column;" id="inventory-info-input">
+    <form style="display: none; flex-direction: column;" id="form-product">
         <label name="input-name">Name
             <input name="input-text" id="name" type="text">
         </label>
@@ -104,7 +104,14 @@
         </label>
         <button id="submit-button">Submit</button>
     </form>
+
+    <section id="form-inventory" style="display: block">
+        <h1>Inventory</h1>
+        <ul id="inventory-container"></ul>
+    </section>
     </main>
     <script type="module" src="script.js"></script>
+    <script src="toggleInventory.js"></script>
+    <script src="displayInventory.js"></script>
 </body>
 </html>
