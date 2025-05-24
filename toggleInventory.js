@@ -2,7 +2,6 @@ function toggleInventory() {
     const inventoryButton = document.getElementById("inventory-button")
     const addProductButton = document.getElementById("add-product-button")
     const inventoryForm = document.getElementById("form-inventory")
-    console.log(inventoryForm)
     const productForm = document.getElementById("form-product")
 
     inventoryButton.addEventListener("click", ()=> {

@@ -27,7 +27,7 @@
         <h2># Upload Inventory</h2>
         <h2>+ Initialize New Inventory</h2>
     </form> -->
-    <form style="display: none; flex-direction: column;" id="form-product">
+    <form style="display: block; flex-direction: column;" id="form-product">
         <label name="input-name">Name
             <input name="input-text" id="name" type="text">
         </label>
@@ -105,7 +105,7 @@
         <button id="submit-button">Submit</button>
     </form>
 
-    <section id="form-inventory" style="display: block">
+    <section id="form-inventory" style="display: none">
         <h1>Inventory</h1>
         <ul id="inventory-container"></ul>
     </section>
@@ -113,5 +113,6 @@
     <script type="module" src="script.js"></script>
     <script src="toggleInventory.js"></script>
     <script src="displayInventory.js"></script>
+    <script src="setTypes.js"></script>
 </body>
 </html>

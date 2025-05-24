@@ -18,8 +18,7 @@ function getOptions() {
     const optionsString = JSON.stringify(Array.from(options.entries()))
     localStorage.setItem("options", optionsString)
 
-}
-
+    }
     return options
 }
 
@@ -37,12 +36,12 @@ function saveOptions(name, obj) {
 function setType(name) {
     const options = getOptions()
     const errorMessage = document.getElementById("error-message")
-    let productOptions = {}
+    let productOptions = {"name": name}
     const type = options.get(name)
     for (const option in type) {
         if(option === "medium"){
             const value = document.getElementById("medium").value
-            if(value === "select medium") {
+            /* if(value === "select medium") {
                 errorMessage.textContent = "Select a medium"
                 errorMessage.classList.add("slide-in")
                 setTimeout(()=> {
@@ -50,38 +49,34 @@ function setType(name) {
                 }, 4000)
                 
                 throw new Error("Select an option")
-            }
+            } */
             productOptions = {...productOptions, "medium": value}
         }
         if(option === "WL") {
+            
             const width = document.getElementById("width").value
             const length = document.getElementById("length").value
 
             productOptions = {...productOptions, ["WL"]: {...(productOptions.WL|| {}), ["length"]: length, ["width"]: width}}
-            if(width === "" || length ==="") {
+            /* if(width === "" || length ==="") {
                 errorMessage.classList.remove("slide-in")
                 errorMessage.classList.remove("slide-back")
                 errorMessage.textContent = "Set dimensions"
                 errorMessage.classList.add("slide-in")
                 throw new Error("Set dimensions")
-            }
+            } */
         }
     }
     return productOptions
 }
 
 function renderOptions(name) {
-    const typeLabel = document.getElementById("label-type")
     const options = getOptions()
-    const optionsContainer = document.getElementById("options-container-select")
-    const newAddButton = document.createElement("button")
     const selectContainer = document.getElementById("type-select")
-
     const oldOptions = document.querySelectorAll('option[value="option-type"]')
     oldOptions.forEach(option=> {
         selectContainer.removeChild(option)
     })
-
     options.forEach(option=> {
         const element = document.createElement("option")
         element.value = option.type
@@ -93,10 +88,9 @@ function renderOptions(name) {
     }
 }
 
-
 function setTypes() {
     const optionsContainer = document.getElementById("options-container-select")
-
+    
     //Buttons for adding and confirming new types
     const addButton = document.getElementById("add-option-button")
     const confirmOption = document.createElement("button")
@@ -181,10 +175,11 @@ function setTypes() {
     //Adding select options
     selectContainer.appendChild(defaultOption)
     options.forEach(option=> {
+
         const element = document.createElement("option")
         element.value = option.type
         element.type = "option-type"
-        element.value = "option-type"
+        element.value = option.type
         element.textContent = option.type
         selectContainer.appendChild(element)
 
@@ -193,8 +188,28 @@ function setTypes() {
     //Change options panel based on the type ie adding width and length inputs for prints
     // or selecting shirt sizes for shirts
     selectContainer.addEventListener("change", (e)=> {
-        const selectedOption = options.get(e.target.value)
+        setTypeInputs(e.target.value)
+        console.log(e.target.value)
+        saveInputs()
+    })
+}
+
+const typeSelect = document.getElementById("type-select")
+
+
+function setTypeInputs(name, savedData) {
+    const options = getOptions()
+    console.log("Saved data", name)
+    const typeSelect = document.getElementById("type-select")
+    if(savedData) {
+        typeSelect.value = savedData.type
+    }
+    
+    typeSelect.addEventListener("change", (e)=> {
         e.preventDefault()
+        console.log("SAVEDDD")
+    })
+
         try {
             const container = document.getElementById("type-container")
             const fieldset = document.getElementById("type-options")
@@ -202,23 +217,32 @@ function setTypes() {
         } catch(err){
 
         }
-        
         const typeFieldset = document.getElementById("type-options")
         const div = document.createElement("div")
         div.id = "type-container"
-        for(const option in options.get(e.target.value)) {
+        let optionsSelected;
+        if(savedData) {
+            optionsSelected = options.get(savedData.type)
+        } else {
+            optionsSelected = options.get(name)
+            console.log(optionsSelected)
+        }
+        for(const option in optionsSelected) {
             if(option === "medium") {
                 const select = document.createElement("select")
+            
                 select.name = "medium"
                 select.id = "medium"
                 select.addEventListener("change", (e)=> {
                     e.preventDefault()
+                    saveInputs()
                 })
+                console.log("SELECT", select.value)
 
                 const defaultOption = document.createElement("option")
                 defaultOption.textContent = "select medium"
                 select.appendChild(defaultOption)
-                options.get(e.target.value).medium.forEach(i=>{
+                optionsSelected.medium.forEach(i=>{
                     const option = document.createElement("option")
                     option.textContent = i;
                     option.value = i;
@@ -226,6 +250,10 @@ function setTypes() {
                 })
                 div.appendChild(select)
                 typeFieldset.appendChild(div)
+                if(savedData) {
+                    select.value = savedData.medium
+                    console.log(select.value)
+                }
             }
             if(option === "WL") {
                 const container = document.createElement("div")
@@ -234,14 +262,18 @@ function setTypes() {
                 const lLabel = document.createElement("label")
                 const w = document.createElement("input")
                 const l = document.createElement("input")
-
-                w.id= "width"
-                l.id = "length"
-
+                w.addEventListener("change", (e)=> {
+                    e.preventDefault()
+                    saveInputs()
+        
+                })
                 l.addEventListener("change", (e)=> {
                     e.preventDefault()
-
+                    saveInputs()
+                    savedItem.type.WL.length = l.value 
                 })
+                w.id= "width"
+                l.id = "length"
 
                 wLabel.textContent = "Width"
                 lLabel.textContent = "Length"
@@ -257,14 +289,18 @@ function setTypes() {
                 container.appendChild(wLabel)
                 container.appendChild(lLabel)
                 div.appendChild(container)
+
+                if(savedData) {
+                    l.value = savedData.WL.l
+                    w.value = savedData.WL.w
+                }
             }
 
             if(option === "size") {
-                console.log(selectedOption.size)
                 const sizeContainer = document.createElement("div")
                 const sizeSelect = document.createElement("select")
-                selectedOption.size.forEach(size=> {
-                    console.log(size)
+                sizeSelect.id = "size-select";
+                optionsSelected.size.forEach(size=> {
                     const option = document.createElement("option")
                     option.value = size
                     option.textContent = size
@@ -272,10 +308,31 @@ function setTypes() {
                 })
                 div.appendChild(sizeSelect)
                 typeFieldset.appendChild(div)
-                
             }
         }
-    })
 }
 
-export {setTypes, setType}
+function saveInputs(){
+    const typeSelect = document.getElementById("type-select").value
+    const options = getOptions(typeSelect).get(typeSelect)
+    console.log(options)
+    let productOptions = {"type": typeSelect};
+    for(const option in options) {
+        if(option === "medium"){
+            const medium = document.getElementById("medium").value
+            
+            productOptions = {...productOptions, "medium": medium}
+        }
+        if(option === "WL"){
+            productOptions = {...productOptions, "WL": {"w": document.getElementById("width").value, "l": document.getElementById("length").value}}
+            
+        }
+        if(option === "size"){
+            const sizeValue = document.getElementById("size-select")
+            productOptions = {...productOptions, "size": sizeValue}
+        }
+    }
+    localStorage.setItem("type", JSON.stringify(productOptions))
+}
+
+export {setTypes, setType, setTypeInputs, saveInputs}
