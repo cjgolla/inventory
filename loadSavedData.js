@@ -1,4 +1,5 @@
 import {setTypes, setType, setTypeInputs, saveInputs} from './setTypes.js'
+import history from './history.js'
 
 function loadSavedImage(){
     try{
@@ -14,7 +15,7 @@ function loadSavedImage(){
     }
 };
 
-function loadInputData(){
+function loadInputData(undo){
     let savedItem = {
         name: "-",
         desc: "-",
@@ -40,18 +41,25 @@ function loadInputData(){
             })
         }
         textInputs.forEach(input => {
-    input.addEventListener("change", (e)=> {
+        input.addEventListener("change", (e)=> {
         e.preventDefault()
+        if(!undo) {
+            history.push(savedItem, savedType)
+        }
         savedItem[e.target.id] = e.target.value
         localStorage.setItem("savedItem", JSON.stringify(savedItem))
-})
+
+    })
 })
 
     } catch (error) {
         console.log("Error loading data: ", error)
     } 
     return savedItem
+}
 
+function revertData(savedItem, savedType) {
+    
 }
 
 export {loadSavedImage, loadInputData}

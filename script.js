@@ -5,7 +5,12 @@ import setFolders from './setFolders.js'
 import editMode from './editMode.js'
 import submitInfo from './submitInfo.js'
 import {loadSavedImage, loadInputData} from './loadSavedData.js'
+import history from './history.js'
 let imgSrc = ''
+
+let undoTrack = 0;
+const arr = new Array(5)
+
 
 setFolders()
 setTypes()
@@ -14,6 +19,8 @@ const selectValue = document.getElementById("type-select")
 
 inventory.displayItems()
 
+const undoButton = document.getElementById("undo-button")
+const redoButton = document.getElementById("redo-button")
 const submitButton = document.getElementById("submit-button")
 const saveButton = document.getElementById("save-button")
 const textInputs = document.querySelectorAll('input[name="input-text"], textarea[name="input-text"]')
@@ -31,22 +38,41 @@ const currentImage = (function() {
     }
 })();
 
+
 let savedItem = loadInputData()
 
 const typeSelect = document.getElementById("type-select")
 typeSelect.addEventListener("change", (e)=> {
     e.preventDefault()
     setTypeInputs(e.target.value)
-    
-
 })
 
 textInputs.forEach(input => {
     input.addEventListener("change", (e)=> {
-        e.preventDefault()
-        savedItem[e.target.id] = e.target.value
-        localStorage.setItem("savedItem", JSON.stringify(savedItem))
+        
+        try{
+            e.preventDefault()
+            
+            savedItem[e.target.id] = e.target.value
+            localStorage.setItem("savedItem", JSON.stringify(savedItem))
+        } catch (error) {
+            console.log("Failed to save data")
+        }
+    })
 })
+
+undoButton.addEventListener("click",(e)=> {
+    e.preventDefault()
+    /* const revertedItem = history.revert()
+    console.log(revertedItem) */
+    history.undo()
+    loadInputData('undo')
+})
+
+redoButton.addEventListener("click", (e)=> {
+    e.preventDefault()
+    history.redo()
+    loadInputData()
 })
 
 const itemImg = document.getElementById("item-img")

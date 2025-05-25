@@ -189,7 +189,6 @@ function setTypes() {
     // or selecting shirt sizes for shirts
     selectContainer.addEventListener("change", (e)=> {
         setTypeInputs(e.target.value)
-        console.log(e.target.value)
         saveInputs()
     })
 }
@@ -199,7 +198,6 @@ const typeSelect = document.getElementById("type-select")
 
 function setTypeInputs(name, savedData) {
     const options = getOptions()
-    console.log("Saved data", name)
     const typeSelect = document.getElementById("type-select")
     if(savedData) {
         typeSelect.value = savedData.type
@@ -207,7 +205,6 @@ function setTypeInputs(name, savedData) {
     
     typeSelect.addEventListener("change", (e)=> {
         e.preventDefault()
-        console.log("SAVEDDD")
     })
 
         try {
@@ -225,7 +222,6 @@ function setTypeInputs(name, savedData) {
             optionsSelected = options.get(savedData.type)
         } else {
             optionsSelected = options.get(name)
-            console.log(optionsSelected)
         }
         for(const option in optionsSelected) {
             if(option === "medium") {
@@ -237,8 +233,6 @@ function setTypeInputs(name, savedData) {
                     e.preventDefault()
                     saveInputs()
                 })
-                console.log("SELECT", select.value)
-
                 const defaultOption = document.createElement("option")
                 defaultOption.textContent = "select medium"
                 select.appendChild(defaultOption)
@@ -252,7 +246,6 @@ function setTypeInputs(name, savedData) {
                 typeFieldset.appendChild(div)
                 if(savedData) {
                     select.value = savedData.medium
-                    console.log(select.value)
                 }
             }
             if(option === "WL") {
@@ -315,7 +308,6 @@ function setTypeInputs(name, savedData) {
 function saveInputs(){
     const typeSelect = document.getElementById("type-select").value
     const options = getOptions(typeSelect).get(typeSelect)
-    console.log(options)
     let productOptions = {"type": typeSelect};
     for(const option in options) {
         if(option === "medium"){
