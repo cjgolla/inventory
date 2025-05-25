@@ -2,6 +2,9 @@ import inventory from './inventory.js'
 import {setTypes, setType, setTypeInputs, saveInputs} from './setTypes.js'
 import {Product, createProduct} from './product.js'
 import setFolders from './setFolders.js'
+import editMode from './editMode.js'
+import submitInfo from './submitInfo.js'
+import {loadSavedImage, loadInputData} from './loadSavedData.js'
 let imgSrc = ''
 
 setFolders()
@@ -12,7 +15,8 @@ const selectValue = document.getElementById("type-select")
 inventory.displayItems()
 
 const submitButton = document.getElementById("submit-button")
-
+const saveButton = document.getElementById("save-button")
+const textInputs = document.querySelectorAll('input[name="input-text"], textarea[name="input-text"]')
 const currentImage = (function() {
     try{
         const cameraSvg = document.getElementById("camera-svg")
@@ -27,39 +31,9 @@ const currentImage = (function() {
     }
 })();
 
-let savedItem = {
-    name: "-",
-    desc: "-",
-    type: "-",
-    img: "-",
-    qt: "-",
-    pr: "-"
-}
+let savedItem = loadInputData()
 
 const typeSelect = document.getElementById("type-select")
-const textInputs = document.querySelectorAll('input[name="input-text"], textarea[name="input-text"]')
-
-function saveData() {
-    
-}
-
-try{
-    const savedItemLS =  JSON.parse(localStorage.getItem("savedItem"))
-    const savedType = JSON.parse(localStorage.getItem("type"))
-    console.log(savedType)
-   
-    setTypeInputs(savedType.type, savedType)
-    if(savedItemLS) {
-        savedItem = savedItemLS
-        textInputs.forEach(input=> {
-            input.value = savedItemLS[input.id]
-        })
-    }
-} catch (error) {
-
-} 
-
-
 typeSelect.addEventListener("change", (e)=> {
     e.preventDefault()
     setTypeInputs(e.target.value)
@@ -123,42 +97,7 @@ function displayPicture(input) {
 
 function saveImage() {}
 
-function submitInfo() {
 
-    try {
-        const name = document.getElementById("name").value
-        const type= setType(document.getElementById("type-select").value)
-        console.log(type)
-        const desc = document.getElementById("desc").value
-        const img = currentImage || "-"
-        
-        const qt = Number(document.getElementById("qt").value)
-        const pr = Number(document.getElementById("pr").value)
-        const fldr = document.getElementById("folder-select").value
-
-        const newProduct = createProduct([name, desc, type, qt, pr, fldr, imgSrc])
-        console.log(newProduct)
-
-        if(name === "" || desc === "" || qt === "" || pr === "") {
-            console.log("You need to fill out all the inputs")
-            return;
-        }
-        const nameError = document.getElementById("name-error")
-        if(inventory.hasKey(name)) {
-            nameError.style.display = "inline"
-            console.log("Name already exists")
-            return
-        } else {
-            nameError.style.display = "none"
-        }
-        console.log("Name is good")
-        inventory.set(newProduct)
-        const inventoryArray = Array.from(inventory.get().entries())
-        localStorage.setItem("inventory", JSON.stringify(inventoryArray))
-    } catch (error) {
-        console.log(error)
-    }
-}
 
 submitButton.addEventListener("click", (e)=> {
     e.preventDefault()
