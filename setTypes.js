@@ -200,7 +200,7 @@ function setTypeInputs(name, savedData) {
     const options = getOptions()
     const typeSelect = document.getElementById("type-select")
     if(savedData) {
-        typeSelect.value = savedData.type
+        typeSelect.value = savedData.name
     }
     
     typeSelect.addEventListener("change", (e)=> {
@@ -219,7 +219,7 @@ function setTypeInputs(name, savedData) {
         div.id = "type-container"
         let optionsSelected;
         if(savedData) {
-            optionsSelected = options.get(savedData.type)
+            optionsSelected = options.get(savedData.name)
         } else {
             optionsSelected = options.get(name)
         }
@@ -284,8 +284,8 @@ function setTypeInputs(name, savedData) {
                 div.appendChild(container)
 
                 if(savedData) {
-                    l.value = savedData.WL.l
-                    w.value = savedData.WL.w
+                    l.value = savedData.WL.length
+                    w.value = savedData.WL.width
                 }
             }
 

@@ -26,14 +26,15 @@ function loadInputData(undo){
     }
 
     const typeSelect = document.getElementById("type-select")
-    const textInputs = document.querySelectorAll('input[name="input-text"], textarea[name="input-text"]')
+    const textInputs = document.querySelectorAll('input[name="input-text"], textarea[name="input-text"], select[name="folder-select"]')
 
     try{
         const savedItemLS =  JSON.parse(localStorage.getItem("savedItem"))
         const savedType = JSON.parse(localStorage.getItem("type"))
         console.log(savedType)
     
-        setTypeInputs(savedType.type, savedType)
+        setTypeInputs(savedType.name, savedType)
+        console.log(savedType)
         if(savedItemLS) {
             savedItem = savedItemLS
             textInputs.forEach(input=> {

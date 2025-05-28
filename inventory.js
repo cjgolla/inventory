@@ -4,10 +4,13 @@ class Inventory{
             this.inventory = new Map()
             try{
                 const inventoryArray = JSON.parse(localStorage.getItem("inventory"))
-                this.inventory = new Map(inventoryArray)
+                if(Array.isArray(inventoryArray)) {
+                    this.inventory = new Map(inventoryArray)
+                }
             } catch (error) {
                 console.log(error)
             }
+            Inventory.instance = this;
         }
         return Inventory.instance
     }
@@ -15,24 +18,24 @@ class Inventory{
     set(obj) {
         this.inventory.set(obj.name, obj)
     }
+    save() {
+        localStorage.setItem("inventory", JSON.stringify([...this.inventory]))
+    }
 
     get() {
         return this.inventory
     }
     hasKey(name) {
-        let match = ""
-        this.inventory.forEach(key=>{
-           if(key.name === name) {
-                match = 1
-           } 
-        })
-        if(match === 1) {
-            return true
-        }
+        return this.inventory.has(name)
     }
     displayItems() {
         this.inventory.forEach(item=> {
+            console.log(item)
         })
+    }
+    remove(name){
+        this.inventory.delete(name)
+        localStorage.setItem("inventory", JSON.stringify([...this.inventory]))
     }
 
 }

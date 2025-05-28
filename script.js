@@ -121,11 +121,14 @@ function displayPicture(input) {
     }
 }
 
-function saveImage() {}
-
-
 
 submitButton.addEventListener("click", (e)=> {
     e.preventDefault()
     submitInfo()
+})
+
+saveButton.addEventListener("click", (e)=> {
+    e.preventDefault()
+    savedItem = JSON.parse(localStorage.getItem("savedItem"))
+    submitInfo(editMode, savedItem)
 })
