@@ -3,11 +3,11 @@ class Product{
         this.name = name;
         this.desc = desc;
         this.type = type;
-        this.qt = qt;
-        this.pr = pr;
+        this.qt = Number(qt);
+        this.pr = Number(pr);
         this.fldr = fldr;
         this.img = img;
-        this.key = key
+        this.key = key;
     }
     setName(newName) {
         this.name = newName

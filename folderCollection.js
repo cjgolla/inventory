@@ -14,7 +14,7 @@ class FolderCollection{
         this.collection.set(name, folderObject)
 
         
-       /*  const folderArray = Array.from(this.collection.get().entries())
+       /*const folderArray = Array.from(this.collection.get().entries())
         localStorage.setItem("folderArray", JSON.stringify(folderArray))  */
     }
 

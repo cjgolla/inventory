@@ -11,7 +11,7 @@ import {saveInputs, setTypeInputs, setType, setTypes} from './setTypes.js'
 const inventoryContainer = document.getElementById("inventory-container")
 
 inventory.inventory.forEach((product)=> {
-    console.log(product.name)
+
 
     const form = document.getElementById("form-product")
     const inventorySection = document.getElementById("form-inventory")
@@ -64,7 +64,7 @@ inventory.inventory.forEach((product)=> {
         try{
 
             const saveButton = document.getElementById("save-button")
-            const submitButton = document.getElementById("submit-button")
+            const submitButton = document.getElementById("submit-product-button")
             saveButton.style.display = "block"
             submitButton.style.display = "none"
             const title = document.getElementById("form-title")
@@ -76,12 +76,10 @@ inventory.inventory.forEach((product)=> {
             localStorage.setItem("type",JSON.stringify(savedItem.type))
             loadSavedImage();
             loadInputData();
-            
-
             inventorySection.style.display = "none";
             form.style.display = "block";
         } catch (error) {
-
+            console.log(error)
         }
         
         

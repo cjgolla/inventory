@@ -1,18 +1,19 @@
 import inventory from './inventory.js'
 import {setTypes, setType, setTypeInputs, saveInputs} from './setTypes.js'
 import {Product, createProduct} from './product.js'
-import setFolders from './setFolders.js'
+import {setFolders, addProduct} from './setFolders.js'
 import editMode from './editMode.js'
 import submitInfo from './submitInfo.js'
 import {loadSavedImage, loadInputData} from './loadSavedData.js'
 import history from './history.js'
 import clearInputs from './clearInputs.js'
+import setCart from './addCart.js'
 let imgSrc = ''
 
 let undoTrack = 0;
 const arr = new Array(5)
 
-
+setCart(inventory.inventory)
 setFolders()
 setTypes()
 
@@ -22,7 +23,7 @@ inventory.displayItems()
 
 const undoButton = document.getElementById("undo-button")
 const redoButton = document.getElementById("redo-button")
-const submitButton = document.getElementById("submit-button")
+const submitButton = document.getElementById("submit-product-button")
 const saveButton = document.getElementById("save-button")
 const textInputs = document.querySelectorAll('input[name="input-text"], textarea[name="input-text"]')
 const currentImage = (function() {

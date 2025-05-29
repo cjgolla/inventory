@@ -27,12 +27,14 @@ class Inventory{
     get() {
         return this.inventory
     }
+    getItem(name){
+        return this.inventory.get(name)
+    }
     hasKey(name) {
         return this.inventory.has(name)
     }
     displayItems() {
         this.inventory.forEach(item=> {
-            console.log(item)
         })
     }
     remove(name){

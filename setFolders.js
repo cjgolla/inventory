@@ -1,6 +1,6 @@
 import Folder from './folder.js'
 import folderCollection from './folderCollection.js'
-
+const folderSelect = document.getElementById("fldr")
 function setCollection() {
     try{
         const folderEntries = JSON.parse(localStorage.getItem("folders"));
@@ -8,19 +8,19 @@ function setCollection() {
     } catch (error) {
 
     }
-    folderCollection.addFolder("anime", {name:"anime"})
-    folderCollection.addFolder("cartoon", {name:"cartoon"})
+    folderCollection.addFolder("anime", {name:"anime", products: []})
+    folderCollection.addFolder("cartoon", {name:"cartoon", products: []})
     return folderCollection;
 }
 
 function renderFolders(name) {
-    const folderSelect = document.getElementById("folder-select")
+    
     folderCollection.collection.forEach(folder=>{
         const option = document.createElement("option")
         option.value = folder.name
         option.textContent = folder.name
         folderSelect.value = folder.name
-        option.for = "folder-select"
+        option.for = "fldr"
         folderSelect.appendChild(option)
     })
     if(name) {
@@ -31,12 +31,10 @@ function renderFolders(name) {
 //Initializing new folder
 function createFolder(name) {
     const folder = new Folder(name)
-    folder.addProduct("cool stuff")
-    folder.addProduct("neat shit")
     folderCollection.addFolder(name, folder.getFolder())
     let foldersArray = JSON.stringify(Array.from(folderCollection.collection.entries()));
-    console.log(foldersArray)
-    localStorage.setItem("folders", foldersArray)
+    console.log(folderCollection)
+    localStorage.setItem("folders", JSON.stringify([...folderCollection.collection]))
     renderFolders(name)
     return folder
 }
@@ -93,4 +91,14 @@ function setFolders() {
     })
 }
 
-export default setFolders
+function addProduct(){
+    let name = document.getElementById("name").value
+    let folder = folderCollection.get(folderSelect.value)
+    console.log(folderCollection.collection)
+    folder.products.push(name)
+    folderCollection.addFolder(folder.name, folder)
+    localStorage.setItem("folders", JSON.stringify([...folderCollection.collection]))
+    return folder.name
+}
+
+export {setFolders, addProduct}

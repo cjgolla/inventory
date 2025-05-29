@@ -8,6 +8,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+    rel="stylesheet"
+/>
 </head>
 <body>
     <!-- <div id="error-message">
@@ -98,13 +102,13 @@
         
         <label id="folder-label">Select Folder
             <div style="display:flex; margin-bottom: 10px; align-items: center;">
-                <select id="folder-select" name="folder-select">
+                <select id="fldr" name="folder-select">
 
                 </select>
                 <button class="small-button" id="add-folder-button">+</button>
             </div>
         </label>
-        <button id="submit-button">Submit</button>
+        <button id="submit-product-button">Submit</button>
         <button id="save-button" style="display: none;">Save</button>
     </form>
 
@@ -112,13 +116,24 @@
         <h1>Inventory</h1>
         <ul id="inventory-container"></ul>
     </section>
-    <section id="cart">
-        <h1>Add to Cart</h1>
+    <form id="cart">
+        <div id="cart-title" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <h1>Cart</h1><button style="width:100px;" id="clear-cart">Clear cart</button>
+        </div>
+        <span>Add from Folder</span>
         <select id="select-folder">
-            <option>Select folder</option>
-          
         </select>
-    </section>
+        <div style="margin-top: 10px; margin-bottom:10px;" id="cart-item-check">
+
+        </div>
+        <table id="cart-display">
+            <tr>
+                <td style="padding-bottom: 20px;">Name</td>
+                <td style="padding-bottom: 20px;">Qt</td>
+                <td style="padding-bottom: 20px;">Price</td>
+            </tr>
+        </table>
+    </form>
     </main>
     <script type="module" src="script.js"></script>
     <script type="module" src="toggleInventory.js"></script>

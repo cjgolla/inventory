@@ -94,11 +94,19 @@ fieldset{
 .label{
     font-size: 14px;
     margin-bottom:4px;
+    display: flex;
+}
+td{
+    padding-right:10px;
+}
+.icon{
+    margin-left: 10px;
 }
 
 .number{
-    width:50px;
-    margin: 5px 10px 10px 0px;
+    width:20px;
+    height:12px;
+    margin-left: 10px;
 }
 #error-message{
     width:200px;

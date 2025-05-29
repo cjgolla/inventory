@@ -1,5 +1,6 @@
 import {setTypes, setType, setTypeInputs, saveInputs} from './setTypes.js'
 import {Product, createProduct} from './product.js'
+import {addProduct} from './setFolders.js'
 import inventory from './inventory.js'
 import clearInputs from './clearInputs.js'
 
@@ -35,7 +36,7 @@ function submitInfo(editMode, savedItem) {
         
         const qt = Number(document.getElementById("qt").value)
         const pr = Number(document.getElementById("pr").value)
-        const fldr = document.getElementById("folder-select").value
+        const fldr = addProduct()
         const key = Math.random()
 
         const newProduct = createProduct([name, desc, type, qt, pr, fldr, currentImage, key])
