@@ -200,7 +200,7 @@ function setTypeInputs(name, savedData) {
     const options = getOptions()
     const typeSelect = document.getElementById("type-select")
     if(savedData) {
-        typeSelect.value = savedData.name
+        typeSelect.value = savedData.type
     }
     
     typeSelect.addEventListener("change", (e)=> {
@@ -219,22 +219,25 @@ function setTypeInputs(name, savedData) {
         div.id = "type-container"
         let optionsSelected;
         if(savedData) {
-            optionsSelected = options.get(savedData.name)
+            optionsSelected = options.get(savedData.type)
         } else {
             optionsSelected = options.get(name)
         }
         for(const option in optionsSelected) {
             if(option === "medium") {
+                
                 const select = document.createElement("select")
             
                 select.name = "medium"
                 select.id = "medium"
+                console.log(select.id)
                 select.addEventListener("change", (e)=> {
                     e.preventDefault()
                     saveInputs()
                 })
                 const defaultOption = document.createElement("option")
                 defaultOption.textContent = "select medium"
+                
                 select.appendChild(defaultOption)
                 optionsSelected.medium.forEach(i=>{
                     const option = document.createElement("option")
@@ -263,7 +266,6 @@ function setTypeInputs(name, savedData) {
                 l.addEventListener("change", (e)=> {
                     e.preventDefault()
                     saveInputs()
-                    savedItem.type.WL.length = l.value 
                 })
                 w.id= "width"
                 l.id = "length"

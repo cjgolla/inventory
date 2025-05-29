@@ -6,6 +6,7 @@ class Inventory{
                 const inventoryArray = JSON.parse(localStorage.getItem("inventory"))
                 if(Array.isArray(inventoryArray)) {
                     this.inventory = new Map(inventoryArray)
+                    
                 }
             } catch (error) {
                 console.log(error)
@@ -17,6 +18,7 @@ class Inventory{
 
     set(obj) {
         this.inventory.set(obj.name, obj)
+        localStorage.setItem("inventory", JSON.stringify([...this.inventory]))
     }
     save() {
         localStorage.setItem("inventory", JSON.stringify([...this.inventory]))

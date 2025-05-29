@@ -62,7 +62,14 @@ inventory.inventory.forEach((product)=> {
     selectButton.addEventListener("click",(e)=> {
         e.preventDefault();
         try{
-            
+
+            const saveButton = document.getElementById("save-button")
+            const submitButton = document.getElementById("submit-button")
+            saveButton.style.display = "block"
+            submitButton.style.display = "none"
+            const title = document.getElementById("form-title")
+            title.textContent = "Edit Product"
+
             const savedItem = inventory.inventory.get(product.name)
             localStorage.setItem("savedItem",JSON.stringify(savedItem))
             localStorage.setItem("image",JSON.stringify(savedItem.img))

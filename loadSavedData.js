@@ -29,30 +29,28 @@ function loadInputData(undo){
     const textInputs = document.querySelectorAll('input[name="input-text"], textarea[name="input-text"], select[name="folder-select"]')
 
     try{
+        
         const savedItemLS =  JSON.parse(localStorage.getItem("savedItem"))
-        const savedType = JSON.parse(localStorage.getItem("type"))
-        console.log(savedType)
-    
-        setTypeInputs(savedType.name, savedType)
-        console.log(savedType)
+        
         if(savedItemLS) {
             savedItem = savedItemLS
             textInputs.forEach(input=> {
                 input.value = savedItemLS[input.id]
-            })
-        }
+           
+        })
+        
         textInputs.forEach(input => {
         input.addEventListener("change", (e)=> {
-        e.preventDefault()
-        if(!undo) {
-            history.push(savedItem, savedType)
-        }
-        savedItem[e.target.id] = e.target.value
-        localStorage.setItem("savedItem", JSON.stringify(savedItem))
-
+            e.preventDefault()
+            savedItem[e.target.id] = e.target.value
+            localStorage.setItem("savedItem", JSON.stringify(savedItem))
     })
-})
 
+})
+            const savedType = JSON.parse(localStorage.getItem("type"))
+            console.log("saved type: ",savedType)
+            setTypeInputs(savedType.name, savedType)
+    }
     } catch (error) {
         console.log("Error loading data: ", error)
     } 

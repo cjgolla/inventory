@@ -6,6 +6,7 @@ import editMode from './editMode.js'
 import submitInfo from './submitInfo.js'
 import {loadSavedImage, loadInputData} from './loadSavedData.js'
 import history from './history.js'
+import clearInputs from './clearInputs.js'
 let imgSrc = ''
 
 let undoTrack = 0;

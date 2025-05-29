@@ -1,7 +1,7 @@
 import {setTypes, setType, setTypeInputs, saveInputs} from './setTypes.js'
 import {Product, createProduct} from './product.js'
 import inventory from './inventory.js'
-
+import clearInputs from './clearInputs.js'
 
 function submitInfo(editMode, savedItem) {
 
@@ -53,6 +53,7 @@ function submitInfo(editMode, savedItem) {
             filteredInventory.set(newProduct.name, newProduct)
             console.log("Updated FilteredInventory:",filteredInventory)
             localStorage.setItem("inventory", JSON.stringify([...filteredInventory]))
+            return
         }
         else if(!editMode && inventory.hasKey(name)) {
             nameError.style.display = "inline"
@@ -63,8 +64,8 @@ function submitInfo(editMode, savedItem) {
         }
         console.log("Name is good")
         inventory.set(newProduct)
-        console.log("New inventory",typeof inventory)
-        inventory.save()
+        console.log(inventory)
+
     } catch (error) {
         console.log(error)
     }
