@@ -123,14 +123,15 @@ function displayPicture(input) {
     }
 }
 
-
 submitButton.addEventListener("click", (e)=> {
     e.preventDefault()
     submitInfo()
+    window.location.reload()
 })
 
 saveButton.addEventListener("click", (e)=> {
     e.preventDefault()
     savedItem = JSON.parse(localStorage.getItem("savedItem"))
     submitInfo(editMode, savedItem)
+    window.location.reload()
 })

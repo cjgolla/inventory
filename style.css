@@ -140,6 +140,18 @@ li{
     justify-content: 
     center; margin-left:10px;
 }
+
+.small-button-borderless{
+    width: 25px; 
+    height: 25px; 
+    display: flex; 
+    border: none;
+    outline: none;
+    align-items: center; 
+    justify-content: 
+    center; margin-left:10px;
+}
+
 .small-button-select{
     width: 25px; 
     height: 25px; 
@@ -212,4 +224,14 @@ li{
         transform: translateY(0%);
         opacity: 0;
     }
+}
+
+@media (max-width: 500px){
+    .inventory-item{
+        width:270px;
+    }
+    .inventory-container{
+        width:290px;
+    }
+    
 }

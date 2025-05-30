@@ -16,13 +16,11 @@ inventory.inventory.forEach((product)=> {
     const form = document.getElementById("form-product")
     const inventorySection = document.getElementById("form-inventory")
 
-    const selectButton = document.createElement("button")
     const removeButton = document.createElement("button")
-    removeButton.textContent = "o";
+    removeButton.textContent = "x";
+    removeButton.classList.add("small-button-borderless")
     removeButton.style.color = "red";
 
-    selectButton.classList.add("small-button-select")
-    selectButton.textContent = "o"
     const inventoryDiv = document.createElement("div")
     inventoryDiv.classList.add("inventory-item")
     inventoryDiv.style.display = "flex";
@@ -32,6 +30,7 @@ inventory.inventory.forEach((product)=> {
 
     const qt = document.createElement("div")
     qt.textContent = `qt. ${product.qt}`
+    qt.classList.add("inventory-remove")
     
     const listItem = document.createElement("li")
     listItem.textContent = product.name
@@ -44,13 +43,16 @@ inventory.inventory.forEach((product)=> {
 
     const type = document.createElement("div")
     type.textContent = product.type.name
+    if(product.type.name === "option") {
+        type.textContent = "-"
+    }
+    type.classList.add("inventory-remove")
 
     imgContainer.appendChild(image)
     inventoryDiv.appendChild(listItem)
     inventoryDiv.appendChild(type)
     inventoryDiv.appendChild(imgContainer)
     inventoryDiv.appendChild(qt)
-    inventoryDiv.appendChild(selectButton)
     inventoryDiv.appendChild(removeButton)
     inventoryContainer.appendChild(inventoryDiv)
 
@@ -59,7 +61,7 @@ inventory.inventory.forEach((product)=> {
         inventoryContainer.removeChild(inventoryDiv)
         inventory.remove(product.name)
     })
-    selectButton.addEventListener("click",(e)=> {
+    listItem.addEventListener("click",(e)=> {
         e.preventDefault();
         try{
 

@@ -21,6 +21,7 @@
         <ul style="display: flex; margin: 5px" >
             <li id="inventory-button" style="padding: 5px">Inventory</li>
             <li id="add-product-button" style="padding: 5px">Add Product</li>
+            <li id="cart-button" style="padding: 5px">Cart</li>
         </ul>
         
     </nav>
@@ -31,7 +32,7 @@
         <h2># Upload Inventory</h2>
         <h2>+ Initialize New Inventory</h2>
     </form> -->
-    <form style="display: block; flex-direction: column;" id="form-product">
+    <form style="display: none; flex-direction: column;" id="form-product">
         <h1 id="form-title">Add Product</h1>
         
         <label name="input-name">Name
@@ -112,11 +113,11 @@
         <button id="save-button" style="display: none;">Save</button>
     </form>
 
-    <section id="form-inventory" style="display: none">
-        <h1>Inventory</h1>
+    <section class="inventory-container" id="form-inventory" style="display: block">
+        <h1 style="margin-bottom: 10px;">Inventory</h1>
         <ul id="inventory-container"></ul>
     </section>
-    <form id="cart">
+    <form id="cart" style="display: none;">
         <div id="cart-title" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
             <h1>Cart</h1><button style="width:100px;" id="clear-cart">Clear cart</button>
         </div>
